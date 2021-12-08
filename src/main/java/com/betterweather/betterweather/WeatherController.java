@@ -46,6 +46,7 @@ public class WeatherController extends MainApplication implements Initializable 
     public TextField dayFourOut;
     public TextField dayFiveOut;
     public Button fiveDayButton;
+    public Label weatherTitle;
 
 
     // Exit button
@@ -163,7 +164,7 @@ public class WeatherController extends MainApplication implements Initializable 
         dayFiveOut.setText(dayFiveTemp + "°C");
     }
 
-    // Initialize (I have no idea what this does, ide generated it for me, it breaks program if I remove it.)
+    // Initialize (I have no idea what this does, ide generated it for me, it breaks program if I remove it)
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
