@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 public class WeatherController extends MainApplication implements Initializable {
     //Define stuff
+    // Probably don't need to define labels, but intellij gets angy if I don't
     @FXML
     public TextField tempOut;
     public TextField weatherOut;
@@ -90,7 +91,7 @@ public class WeatherController extends MainApplication implements Initializable 
         Image image = new Image(new FileInputStream("Images/" + weatherIcon + "@2x.png"));
         weatherImage.setImage(image);
         // Play music
-        // Temporarily removed for reasons. Will probably add back later
+        // Temporarily removed because music stops after ~1 minute. Will probably add back later
 
         /*if (isRain < 532) {
             Media sound = new Media(new File(rain).toURI().toString());
@@ -112,10 +113,11 @@ public class WeatherController extends MainApplication implements Initializable 
             mediaPlayer.setAutoPlay(true);
             mediaPlayer.play();
         }*/
+
     }
     // Five-day forecast
     @FXML
-    protected void fiveDayWeatherInCity() throws UnirestException, FileNotFoundException{
+    protected void fiveDayWeatherInCity() throws UnirestException {
         // City is city (getting input)
         String city = cityInput.getText();
         // Music files
@@ -123,7 +125,7 @@ public class WeatherController extends MainApplication implements Initializable 
 //        String fall = "target/classes/com/weatherfx/weatherfx/fall.mp3";
 //        String snow = "target/classes/com/weatherfx/weatherfx/snow.mp3";
 //        String forest = "target/classes/com/weatherfx/weatherfx/forest.mp3";
-        // Replace the spaces in the city input with %20 for a valid request, and put into lowercase. 3
+        // Replace the spaces in the city input with %20 for a valid request, and put into lowercase.
         city = city.replaceAll("\\s+", "%20");
         city = city.toLowerCase(Locale.ROOT);
         HttpResponse<JsonNode> response = Unirest.get("https://community-open-weather-map.p.rapidapi.com/forecast/daily?q=" + city + "&cnt=5&units=metric&lang=en")
