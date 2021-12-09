@@ -68,9 +68,7 @@ public class WeatherController extends MainApplication implements Initializable 
         String city = cityInput.getText();
         // Replace the spaces in the city input with %20 for a valid request, and put into lowercase.
         city = city.replaceAll("\\s+", "%20").toLowerCase(Locale.ENGLISH);
-        HttpResponse<JsonNode> response = Unirest.get("https://community-open-weather-map.p.rapidapi.com/weather?q=" + city + "&lang=en&units=metric")
-                .header("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com")
-                .header("x-rapidapi-key", "98f907ac21msh865ff2cca16a00dp10b078jsnacf3b7435fb1")
+        HttpResponse<JsonNode> response = Unirest.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=b7b61a2308e043d9b9f949af01f090fc&units=metric")
                 .asJson();
         // Json stuff
         JsonNode rootNode = response.getBody();
@@ -140,6 +138,7 @@ public class WeatherController extends MainApplication implements Initializable 
         String city = cityInput.getText();
         // Replace the spaces in the city input with %20 for a valid request, and put into lowercase.
         city = city.replaceAll("\\s+", "%20");
+        // WTF does local mean?
         city = city.toLowerCase(Locale.ROOT);
         HttpResponse<JsonNode> response = Unirest.get("https://community-open-weather-map.p.rapidapi.com/forecast/daily?q=" + city + "&cnt=5&units=metric&lang=en")
                 .header("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com")
