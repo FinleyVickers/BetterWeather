@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class WeatherController extends MainApplication implements Initializable {
     //Define stuff
-    // Probably don't need to define labels, but intellij gets angy if I don't
+    // Probably don't need to define labels, but intellij gets angy if I don't. I wish I could collapse them.
     @FXML
     public TextField tempOut;
     public TextField weatherOut;
@@ -103,6 +103,7 @@ public class WeatherController extends MainApplication implements Initializable 
         JsonNode rootNode2 = response2.getBody();
         JSONObject rootObj2 = rootNode2.getObject();
         JSONArray alerts = rootObj2.getJSONArray("alerts");
+        System.out.println(alerts);
         // Check if there are any alerts
         if (alerts.length() == 0) {
             // No alerts
@@ -113,7 +114,7 @@ public class WeatherController extends MainApplication implements Initializable 
             System.out.println("Alerts");
             // Alerts vars
             JSONObject alert = alerts.getJSONObject(0);
-            String title = alert.getString("title");
+            String title = alert.getString("severity");
             String description = alert.getString("description");
             String date = alert.getString("effective_local");
             String expires = alert.getString("ends_local");
@@ -123,6 +124,14 @@ public class WeatherController extends MainApplication implements Initializable 
             alertDate.setText(date);
             alertExpires.setText(expires);
         }
+        // Test alerts output with fake data
+        /*
+        alertTitle.setText("Test Alert");
+        alertDescription.setText("Test Description");
+        alertDate.setText("Test Date");
+        alertExpires.setText("Test Expires");
+         */
+
     }
     // Five-day forecast
     @FXML
@@ -165,6 +174,15 @@ public class WeatherController extends MainApplication implements Initializable 
         JSONObject dayFiveTempObj = dayFive.getJSONObject("temp");
         Double dayFiveTemp = dayFiveTempObj.getDouble("day");
         dayFiveOut.setText(dayFiveTemp + "°C");
+
+        // Test output with fake data
+        /*
+        dayOneOut.setText("10°C");
+        dayTwoOut.setText("20°C");
+        dayThreeOut.setText("30°C");
+        dayFourOut.setText("40°C");
+        dayFiveOut.setText("50°C");
+         */
     }
 
     // Initialize (I have no idea what this does, ide generated it for me, it breaks program if I remove it)
