@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -47,6 +48,11 @@ public class WeatherController extends MainApplication implements Initializable 
     public TextField dayFiveOut;
     public Button fiveDayButton;
     public Label weatherTitle;
+    public Label alertsLabel;
+    public TextField alertTitle;
+    public TextArea alertDescription;
+    public TextField alertDate;
+    public TextField alertExpires;
 
 
     // Exit button
@@ -60,11 +66,6 @@ public class WeatherController extends MainApplication implements Initializable 
     public void currentWeatherInCity() throws UnirestException, FileNotFoundException {
         // City is city (getting input)
         String city = cityInput.getText();
-        // Music files
-//        String rain = "target/classes/com/weatherfx/weatherfx/rain.mp3";
-//        String fall = "target/classes/com/weatherfx/weatherfx/fall.mp3";
-//        String snow = "target/classes/com/weatherfx/weatherfx/snow.mp3";
-//        String forest = "target/classes/com/weatherfx/weatherfx/forest.mp3";
         // Replace the spaces in the city input with %20 for a valid request, and put into lowercase.
         city = city.replaceAll("\\s+", "%20").toLowerCase(Locale.ENGLISH);
         HttpResponse<JsonNode> response = Unirest.get("https://community-open-weather-map.p.rapidapi.com/weather?q=" + city + "&lang=en&units=metric")
@@ -74,6 +75,10 @@ public class WeatherController extends MainApplication implements Initializable 
         // Json stuff
         JsonNode rootNode = response.getBody();
         JSONObject rootObj = rootNode.getObject();
+        // Coordinates
+        JSONObject coord = rootObj.getJSONObject("coord");
+        int lon = coord.getInt("lon");
+        int lat = coord.getInt("lat");
         // Weather vars
         JSONArray main_weather = rootObj.getJSONArray("weather");
         JSONObject weather_option = main_weather.getJSONObject(0);
@@ -89,19 +94,41 @@ public class WeatherController extends MainApplication implements Initializable 
         // Set image
         Image image = new Image(new FileInputStream("Images/" + weatherIcon + "@2x.png"));
         weatherImage.setImage(image);
-        // Play music
-        // Temporarily removed because music stops after ~1 minute. Will probably add back later, moved to music class
+
+        // Check for weather alerts in user inputted city
+        HttpResponse<JsonNode> response2 = Unirest.get("https://weatherbit-v1-mashape.p.rapidapi.com/alerts?lat=" + lat + "&lon=" + lon)
+                .header("x-rapidapi-host", "weatherbit-v1-mashape.p.rapidapi.com")
+                .header("x-rapidapi-key", "98f907ac21msh865ff2cca16a00dp10b078jsnacf3b7435fb1")
+                .asJson();
+        JsonNode rootNode2 = response2.getBody();
+        JSONObject rootObj2 = rootNode2.getObject();
+        JSONArray alerts = rootObj2.getJSONArray("alerts");
+        // Check if there are any alerts
+        if (alerts.length() == 0) {
+            // No alerts
+            System.out.println("No alerts");
+            alertTitle.setText("No alerts");
+        } else {
+            // Alerts
+            System.out.println("Alerts");
+            // Alerts vars
+            JSONObject alert = alerts.getJSONObject(0);
+            String title = alert.getString("title");
+            String description = alert.getString("description");
+            String date = alert.getString("effective_local");
+            String expires = alert.getString("ends_local");
+            // Alerts output
+            alertTitle.setText(title);
+            alertDescription.setText(description);
+            alertDate.setText(date);
+            alertExpires.setText(expires);
+        }
     }
     // Five-day forecast
     @FXML
     protected void fiveDayWeatherInCity() throws UnirestException {
         // City is city (getting input)
         String city = cityInput.getText();
-        // Music files
-//        String rain = "target/classes/com/weatherfx/weatherfx/rain.mp3";
-//        String fall = "target/classes/com/weatherfx/weatherfx/fall.mp3";
-//        String snow = "target/classes/com/weatherfx/weatherfx/snow.mp3";
-//        String forest = "target/classes/com/weatherfx/weatherfx/forest.mp3";
         // Replace the spaces in the city input with %20 for a valid request, and put into lowercase.
         city = city.replaceAll("\\s+", "%20");
         city = city.toLowerCase(Locale.ROOT);
@@ -140,38 +167,6 @@ public class WeatherController extends MainApplication implements Initializable 
         dayFiveOut.setText(dayFiveTemp + "°C");
     }
 
-    // Music
-    protected void music() {
-        /* Play this YouTube video audio in the background (https://www.youtube.com/watch?v=YOJsKatW-Ts) if isRain is less than 532,
-        play this YouTube video audio in the background (https://www.youtube.com/watch?v=SBiy8bHDxuI) if isRain is less than 623 and greater than 599,
-        play this YouTube video audio in the background (https://www.youtube.com/watch?v=9r8VtP5kdoo) if isRain is greater than 700 and less than 782,
-        and otherwise play this audio in the background (https://www.youtube.com/watch?v=6me17gGZYRg)*/
-    }
-
-
-
-//        if (isRain < 532) {
-//            Media sound = new Media(new File(rain).toURI().toString());
-//            MediaPlayer mediaPlayer = new MediaPlayer(sound);
-//            mediaPlayer.play();
-//        } else if(isRain < 623 && isRain > 599) {
-//            Media sound = new Media(new File(snow).toURI().toString());
-//            MediaPlayer mediaPlayer = new MediaPlayer(sound);
-//            mediaPlayer.setAutoPlay(true);
-//            mediaPlayer.play();
-//        } else if(isRain > 700 && isRain < 782){
-//            Media sound = new Media(new File(forest).toURI().toString());
-//            MediaPlayer mediaPlayer = new MediaPlayer(sound);
-//            mediaPlayer.setAutoPlay(true);
-//            mediaPlayer.play();
-//        } else {
-//            Media sound = new Media(new File(fall).toURI().toString());
-//            MediaPlayer mediaPlayer = new MediaPlayer(sound);
-//            mediaPlayer.setAutoPlay(true);
-//            mediaPlayer.play();
-//        }
-
-//    }
     // Initialize (I have no idea what this does, ide generated it for me, it breaks program if I remove it)
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
