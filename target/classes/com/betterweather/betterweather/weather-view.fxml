@@ -53,8 +53,8 @@
          <DropShadow />
       </effect>
    </Label>
-   <TextField fx:id="alertTitle" editable="false" layoutX="21.0" layoutY="265.0" promptText="Title" />
+   <TextField fx:id="alertTitle" editable="false" layoutX="21.0" layoutY="265.0" prefHeight="24.0" prefWidth="267.0" promptText="Title" />
    <TextArea fx:id="alertDescription" editable="false" layoutX="21.0" layoutY="299.0" prefHeight="110.0" prefWidth="267.0" promptText="Description" />
-   <TextField fx:id="alertDate" editable="false" layoutX="21.0" layoutY="420.0" promptText="Date" />
-   <TextField fx:id="alertExpires" layoutX="21.0" layoutY="450.0" promptText="Expires" />
+   <TextField fx:id="alertDate" editable="false" layoutX="21.0" layoutY="420.0" prefHeight="24.0" prefWidth="267.0" promptText="Date" />
+   <TextField fx:id="alertExpires" layoutX="21.0" layoutY="450.0" prefHeight="24.0" prefWidth="267.0" promptText="Expires" />
 </Pane>
