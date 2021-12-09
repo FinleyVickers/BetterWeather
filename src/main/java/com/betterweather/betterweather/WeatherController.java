@@ -12,9 +12,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -65,7 +68,7 @@ public class WeatherController extends MainApplication implements Initializable 
 //        String fall = "target/classes/com/weatherfx/weatherfx/fall.mp3";
 //        String snow = "target/classes/com/weatherfx/weatherfx/snow.mp3";
 //        String forest = "target/classes/com/weatherfx/weatherfx/forest.mp3";
-        // Replace the spaces in the city input with %20 for a valid request, and put into lowercase. 3
+        // Replace the spaces in the city input with %20 for a valid request, and put into lowercase.
         city = city.replaceAll("\\s+", "%20");
         city = city.toLowerCase(Locale.ROOT);
         // Send request to open weather
@@ -93,7 +96,6 @@ public class WeatherController extends MainApplication implements Initializable 
         weatherImage.setImage(image);
         // Play music
         // Temporarily removed because music stops after ~1 minute. Will probably add back later
-
         /*if (isRain < 532) {
             Media sound = new Media(new File(rain).toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(sound);
