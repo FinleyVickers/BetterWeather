@@ -60,7 +60,7 @@ public class WeatherController extends MainApplication implements Initializable 
 
     // current weather (Enter button)
     @FXML
-    protected void currentWeatherInCity() throws UnirestException, FileNotFoundException {
+    public void currentWeatherInCity() throws UnirestException, FileNotFoundException {
         // City is city (getting input)
         String city = cityInput.getText();
         // Music files
@@ -69,9 +69,7 @@ public class WeatherController extends MainApplication implements Initializable 
 //        String snow = "target/classes/com/weatherfx/weatherfx/snow.mp3";
 //        String forest = "target/classes/com/weatherfx/weatherfx/forest.mp3";
         // Replace the spaces in the city input with %20 for a valid request, and put into lowercase.
-        city = city.replaceAll("\\s+", "%20");
-        city = city.toLowerCase(Locale.ROOT);
-        // Send request to open weather
+        city = city.replaceAll("\\s+", "%20").toLowerCase(Locale.ENGLISH);
         HttpResponse<JsonNode> response = Unirest.get("https://community-open-weather-map.p.rapidapi.com/weather?q=" + city + "&lang=en&units=metric")
                 .header("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com")
                 .header("x-rapidapi-key", "98f907ac21msh865ff2cca16a00dp10b078jsnacf3b7435fb1")
@@ -95,28 +93,7 @@ public class WeatherController extends MainApplication implements Initializable 
         Image image = new Image(new FileInputStream("Images/" + weatherIcon + "@2x.png"));
         weatherImage.setImage(image);
         // Play music
-        // Temporarily removed because music stops after ~1 minute. Will probably add back later
-        /*if (isRain < 532) {
-            Media sound = new Media(new File(rain).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(sound);
-            mediaPlayer.play();
-        } else if(isRain < 623 && isRain > 599) {
-            Media sound = new Media(new File(snow).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(sound);
-            mediaPlayer.setAutoPlay(true);
-            mediaPlayer.play();
-        } else if(isRain > 700 && isRain < 782){
-            Media sound = new Media(new File(forest).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(sound);
-            mediaPlayer.setAutoPlay(true);
-            mediaPlayer.play();
-        } else {
-            Media sound = new Media(new File(fall).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(sound);
-            mediaPlayer.setAutoPlay(true);
-            mediaPlayer.play();
-        }*/
-
+        // Temporarily removed because music stops after ~1 minute. Will probably add back later, moved to music class
     }
     // Five-day forecast
     @FXML
@@ -166,6 +143,38 @@ public class WeatherController extends MainApplication implements Initializable 
         dayFiveOut.setText(dayFiveTemp + "°C");
     }
 
+    // Music
+    protected void music() {
+        /* Play this YouTube video audio in the background (https://www.youtube.com/watch?v=YOJsKatW-Ts) if isRain is less than 532,
+        play this YouTube video audio in the background (https://www.youtube.com/watch?v=SBiy8bHDxuI) if isRain is less than 623 and greater than 599,
+        play this YouTube video audio in the background (https://www.youtube.com/watch?v=9r8VtP5kdoo) if isRain is greater than 700 and less than 782,
+        and otherwise play this audio in the background (https://www.youtube.com/watch?v=6me17gGZYRg)*/
+    }
+
+
+
+//        if (isRain < 532) {
+//            Media sound = new Media(new File(rain).toURI().toString());
+//            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+//            mediaPlayer.play();
+//        } else if(isRain < 623 && isRain > 599) {
+//            Media sound = new Media(new File(snow).toURI().toString());
+//            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+//            mediaPlayer.setAutoPlay(true);
+//            mediaPlayer.play();
+//        } else if(isRain > 700 && isRain < 782){
+//            Media sound = new Media(new File(forest).toURI().toString());
+//            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+//            mediaPlayer.setAutoPlay(true);
+//            mediaPlayer.play();
+//        } else {
+//            Media sound = new Media(new File(fall).toURI().toString());
+//            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+//            mediaPlayer.setAutoPlay(true);
+//            mediaPlayer.play();
+//        }
+
+//    }
     // Initialize (I have no idea what this does, ide generated it for me, it breaks program if I remove it)
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
