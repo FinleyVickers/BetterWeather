@@ -15,9 +15,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.io.*;
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -54,6 +55,7 @@ public class WeatherController extends MainApplication implements Initializable 
     public TextField alertDate;
     public TextField alertExpires;
 
+    private final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     // Exit button
     @FXML
@@ -68,6 +70,8 @@ public class WeatherController extends MainApplication implements Initializable 
         String city = cityInput.getText();
         // Replace the spaces in the city input with %20 for a valid request, and put into lowercase.
         city = city.replaceAll("\\s+", "%20").toLowerCase(Locale.ENGLISH);
+        // TODO: Change api call to use the One Call API from OpenWeatherMap
+        // TODO: Make an API call to OpenWeatherMap to get the current coordinates of the city
         HttpResponse<JsonNode> response = Unirest.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=b7b61a2308e043d9b9f949af01f090fc&units=metric")
                 .asJson();
         // Json stuff
@@ -107,6 +111,14 @@ public class WeatherController extends MainApplication implements Initializable 
             // No alerts
             System.out.println("No alerts");
             alertTitle.setText("No alerts");
+            // Write output to log with the SLF4J API
+            logger.info("No alerts in " + city);
+            // Set alert description to empty
+            alertDescription.setText("");
+            // Set alert date to empty
+            alertDate.setText("");
+            // Set alert expires to empty
+            alertExpires.setText("");
         } else {
             // Alerts
             System.out.println("Alerts");
@@ -140,6 +152,7 @@ public class WeatherController extends MainApplication implements Initializable 
         city = city.replaceAll("\\s+", "%20");
         // WTF does local mean?
         city = city.toLowerCase(Locale.ROOT);
+        // TODO: Change api call to use the One Call API from OpenWeatherMap
         HttpResponse<JsonNode> response = Unirest.get("https://community-open-weather-map.p.rapidapi.com/forecast/daily?q=" + city + "&cnt=5&units=metric&lang=en")
                 .header("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com")
                 .header("x-rapidapi-key", "98f907ac21msh865ff2cca16a00dp10b078jsnacf3b7435fb1")

@@ -11,6 +11,7 @@ module com.betterweather.betterweather {
     requires eu.hansolo.tilesfx;
     requires unirest.java;
     requires json;
+    requires org.slf4j;
 
     opens com.betterweather.betterweather to javafx.fxml;
     exports com.betterweather.betterweather;
