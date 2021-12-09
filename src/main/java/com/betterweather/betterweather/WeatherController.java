@@ -63,7 +63,7 @@ public class WeatherController extends MainApplication implements Initializable 
         System.exit(0);
     }
 
-    // current weather (Enter button)
+    // current weather (Activates on press of enter button)
     @FXML
     public void currentWeatherInCity() throws UnirestException, FileNotFoundException {
         // City is city (getting input)
