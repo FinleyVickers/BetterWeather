@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="281.0" minWidth="427.0" prefHeight="772.0" prefWidth="430.0" stylesheets="@dark-mode.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.betterweather.betterweather.WeatherController">
+<Pane fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="281.0" minWidth="427.0" prefHeight="772.0" prefWidth="434.0" stylesheets="@dark-mode.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.betterweather.betterweather.WeatherController">
     <TextField fx:id="cityInput" layoutX="14.0" layoutY="50.0" promptText="City" />
     <Button fx:id="cityEnter" alignment="TOP_RIGHT" layoutX="340.0" layoutY="50.0" mnemonicParsing="false" onAction="#currentWeatherInCity" text="Enter" />
     <Label fx:id="weatherLabel" layoutX="14.0" layoutY="102.0" text="Current Weather:" />
@@ -26,16 +26,16 @@
          <DropShadow />
       </effect>
     </Label>
-    <Label fx:id="dayOneLabel" layoutX="32.0" layoutY="529.0" text="Day 1:" />
-    <Label fx:id="dayTwoLabel" layoutX="32.0" layoutY="573.0" text="Day 2:" />
-    <Label fx:id="dayThreeLabel" layoutX="32.0" layoutY="618.0" text="Day 3:" />
-    <Label fx:id="dayFourLabel" layoutX="32.0" layoutY="659.0" text="Day 4:" />
-    <Label fx:id="dayFiveLabel" layoutX="32.0" layoutY="701.0" text="Day 5:" />
-    <TextField fx:id="dayOneOut" editable="false" layoutX="77.0" layoutY="525.0" promptText="Temp" />
-    <TextField fx:id="dayTwoOut" editable="false" layoutX="77.0" layoutY="569.0" promptText="Temp" />
-    <TextField fx:id="dayThreeOut" editable="false" layoutX="77.0" layoutY="614.0" promptText="Temp" />
-    <TextField fx:id="dayFourOut" editable="false" layoutX="77.0" layoutY="655.0" promptText="Temp" />
-    <TextField fx:id="dayFiveOut" editable="false" layoutX="77.0" layoutY="697.0" promptText="Temp" />
+    <Label fx:id="dayOneLabel" layoutX="21.0" layoutY="529.0" text="Day 1:" />
+    <Label fx:id="dayTwoLabel" layoutX="21.0" layoutY="573.0" text="Day 2:" />
+    <Label fx:id="dayThreeLabel" layoutX="21.0" layoutY="618.0" text="Day 3:" />
+    <Label fx:id="dayFourLabel" layoutX="21.0" layoutY="659.0" text="Day 4:" />
+    <Label fx:id="dayFiveLabel" layoutX="21.0" layoutY="701.0" text="Day 5:" />
+    <TextField fx:id="dayOneOut" editable="false" layoutX="140.0" layoutY="525.0" promptText="Temp" />
+    <TextField fx:id="dayTwoOut" editable="false" layoutX="140.0" layoutY="569.0" promptText="Temp" />
+    <TextField fx:id="dayThreeOut" editable="false" layoutX="140.0" layoutY="614.0" promptText="Temp" />
+    <TextField fx:id="dayFourOut" editable="false" layoutX="140.0" layoutY="655.0" promptText="Temp" />
+    <TextField fx:id="dayFiveOut" editable="false" layoutX="140.0" layoutY="697.0" promptText="Temp" />
     <Button fx:id="fiveDayButton" layoutX="346.0" layoutY="481.0" mnemonicParsing="false" onAction="#fiveDayWeatherInCity" text="Enter" />
     <Label fx:id="weatherTitle" layoutX="21.0" layoutY="14.0" text="Weather">
         <font>
@@ -56,5 +56,5 @@
    <TextField fx:id="alertTitle" editable="false" layoutX="21.0" layoutY="265.0" prefHeight="24.0" prefWidth="267.0" promptText="Title" />
    <TextArea fx:id="alertDescription" editable="false" layoutX="21.0" layoutY="299.0" prefHeight="110.0" prefWidth="267.0" promptText="Description" />
    <TextField fx:id="alertDate" editable="false" layoutX="21.0" layoutY="420.0" prefHeight="24.0" prefWidth="267.0" promptText="Date" />
-   <TextField fx:id="alertExpires" layoutX="21.0" layoutY="450.0" prefHeight="24.0" prefWidth="267.0" promptText="Expires" />
+   <TextField fx:id="alertExpires" editable="false" layoutX="21.0" layoutY="450.0" prefHeight="24.0" prefWidth="267.0" promptText="Expires" />
 </Pane>
