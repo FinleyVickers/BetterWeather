@@ -63,7 +63,7 @@ public class WeatherController extends MainApplication implements Initializable 
         System.exit(0);
     }
 
-    // current weather (Enter button)
+    // current weather (Activates on press of enter button)
     @FXML
     public void currentWeatherInCity() throws UnirestException, FileNotFoundException {
         // City is city (getting input)
@@ -96,7 +96,6 @@ public class WeatherController extends MainApplication implements Initializable 
         // Set image
         Image image = new Image(new FileInputStream("Images/" + weatherIcon + "@2x.png"));
         weatherImage.setImage(image);
-
         // Check for weather alerts in user inputted city
         HttpResponse<JsonNode> response2 = Unirest.get("https://weatherbit-v1-mashape.p.rapidapi.com/alerts?lat=" + lat + "&lon=" + lon)
                 .header("x-rapidapi-host", "weatherbit-v1-mashape.p.rapidapi.com")
@@ -152,40 +151,53 @@ public class WeatherController extends MainApplication implements Initializable 
         city = city.replaceAll("\\s+", "%20");
         // WTF does local mean?
         city = city.toLowerCase(Locale.ROOT);
-        // TODO: Change api call to use the One Call API from OpenWeatherMap
-        HttpResponse<JsonNode> response = Unirest.get("https://community-open-weather-map.p.rapidapi.com/forecast/daily?q=" + city + "&cnt=5&units=metric&lang=en")
-                .header("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com")
-                .header("x-rapidapi-key", "98f907ac21msh865ff2cca16a00dp10b078jsnacf3b7435fb1")
+        // Get the next 5 days of weather in the city, using cnt=5
+        HttpResponse<JsonNode> response = Unirest.get("http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=b7b61a2308e043d9b9f949af01f090fc&units=metric&cnt=5")
                 .asJson();
         // Json stuff
         JsonNode rootNode = response.getBody();
         JSONObject rootObj = rootNode.getObject();
+        // Forecast vars
         JSONArray main_week = rootObj.getJSONArray("list");
+        System.out.println(main_week);
         // Day One
         JSONObject dayOne = main_week.getJSONObject(0);
-        JSONObject dayOneTempObj = dayOne.getJSONObject("temp");
-        Double dayOneTemp = dayOneTempObj.getDouble("day");
+        System.out.println(dayOne);
+        String dayOneDate = dayOne.getString("dt_txt");
+        dayOneLabel.setText(dayOneDate);
+        JSONObject dayOneTempObj = dayOne.getJSONObject("main");
+        Double dayOneTemp = dayOneTempObj.getDouble("temp");
         dayOneOut.setText(dayOneTemp + "°C");
         // Day Two
         JSONObject dayTwo = main_week.getJSONObject(1);
-        JSONObject dayTwoTempObj = dayTwo.getJSONObject("temp");
-        Double dayTwoTemp = dayTwoTempObj.getDouble("day");
+        String dayTwoDate = dayTwo.getString("dt_txt");
+        dayTwoLabel.setText(dayTwoDate);
+        JSONObject dayTwoTempObj = dayTwo.getJSONObject("main");
+        Double dayTwoTemp = dayTwoTempObj.getDouble("temp");
         dayTwoOut.setText(dayTwoTemp + "°C");
         // Day Three
         JSONObject dayThree = main_week.getJSONObject(2);
-        JSONObject dayThreeTempObj = dayThree.getJSONObject("temp");
-        Double dayThreeTemp = dayThreeTempObj.getDouble("day");
+        String dayThreeDate = dayOne.getString("dt_txt");
+        dayThreeLabel.setText(dayThreeDate);
+        JSONObject dayThreeTempObj = dayThree.getJSONObject("main");
+        Double dayThreeTemp = dayThreeTempObj.getDouble("temp");
         dayThreeOut.setText(dayThreeTemp + "°C");
         // Day Four
         JSONObject dayFour = main_week.getJSONObject(3);
-        JSONObject dayFourTempObj = dayFour.getJSONObject("temp");
-        Double dayFourTemp = dayFourTempObj.getDouble("day");
+        String dayFourDate = dayOne.getString("dt_txt");
+        dayFourLabel.setText(dayFourDate);
+        JSONObject dayFourTempObj = dayFour.getJSONObject("main");
+        Double dayFourTemp = dayFourTempObj.getDouble("temp");
         dayFourOut.setText(dayFourTemp + "°C");
         // Day Five
         JSONObject dayFive = main_week.getJSONObject(4);
-        JSONObject dayFiveTempObj = dayFive.getJSONObject("temp");
-        Double dayFiveTemp = dayFiveTempObj.getDouble("day");
+        String dayFiveDate = dayOne.getString("dt_txt");
+        dayFiveLabel.setText(dayFiveDate);
+        JSONObject dayFiveTempObj = dayFive.getJSONObject("main");
+        Double dayFiveTemp = dayFiveTempObj.getDouble("temp");
         dayFiveOut.setText(dayFiveTemp + "°C");
+
+    }
 
         // Test output with fake data
         /*
@@ -195,7 +207,6 @@ public class WeatherController extends MainApplication implements Initializable 
         dayFourOut.setText("40°C");
         dayFiveOut.setText("50°C");
          */
-    }
 
     // Initialize (I have no idea what this does, ide generated it for me, it breaks program if I remove it)
     @Override
