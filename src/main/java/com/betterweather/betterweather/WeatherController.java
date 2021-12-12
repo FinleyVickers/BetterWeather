@@ -152,50 +152,46 @@ public class WeatherController extends MainApplication implements Initializable 
         // WTF does local mean?
         city = city.toLowerCase(Locale.ROOT);
         // Get the next 5 days of weather in the city, using cnt=5
-        HttpResponse<JsonNode> response = Unirest.get("http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=b7b61a2308e043d9b9f949af01f090fc&units=metric&cnt=5")
+        HttpResponse<JsonNode> response = Unirest.get("http://api.openweathermap.org/data/2.5/forecast/daily?q=" + city + "&cnt=5&appid=b7b61a2308e043d9b9f949af01f090fc&units=metric")
                 .asJson();
         // Json stuff
         JsonNode rootNode = response.getBody();
         JSONObject rootObj = rootNode.getObject();
+        System.out.println(rootObj);
         // Forecast vars
         JSONArray main_week = rootObj.getJSONArray("list");
         System.out.println(main_week);
         // Day One
         JSONObject dayOne = main_week.getJSONObject(0);
         System.out.println(dayOne);
-        String dayOneDate = dayOne.getString("dt_txt");
-        dayOneLabel.setText(dayOneDate);
-        JSONObject dayOneTempObj = dayOne.getJSONObject("main");
-        Double dayOneTemp = dayOneTempObj.getDouble("temp");
-        dayOneOut.setText(dayOneTemp + "°C");
+        JSONObject dayOneTempObj = dayOne.getJSONObject("temp");
+        Double dayOneTemp = dayOneTempObj.getDouble("day");
+        JSONObject DOne_feels_like = dayOne.getJSONObject("feels_like");
+        dayOneOut.setText(dayOneTemp + "°C, feels like " + DOne_feels_like.getDouble("day") + "°C");
         // Day Two
         JSONObject dayTwo = main_week.getJSONObject(1);
-        String dayTwoDate = dayTwo.getString("dt_txt");
-        dayTwoLabel.setText(dayTwoDate);
-        JSONObject dayTwoTempObj = dayTwo.getJSONObject("main");
-        Double dayTwoTemp = dayTwoTempObj.getDouble("temp");
-        dayTwoOut.setText(dayTwoTemp + "°C");
+        JSONObject dayTwoTempObj = dayTwo.getJSONObject("temp");
+        Double dayTwoTemp = dayTwoTempObj.getDouble("day");
+        JSONObject DTwo_feels_like = dayTwo.getJSONObject("feels_like");
+        dayTwoOut.setText(dayTwoTemp + "°C, feels like " + DTwo_feels_like.getDouble("day") + "°C");
         // Day Three
         JSONObject dayThree = main_week.getJSONObject(2);
-        String dayThreeDate = dayOne.getString("dt_txt");
-        dayThreeLabel.setText(dayThreeDate);
-        JSONObject dayThreeTempObj = dayThree.getJSONObject("main");
-        Double dayThreeTemp = dayThreeTempObj.getDouble("temp");
-        dayThreeOut.setText(dayThreeTemp + "°C");
+        JSONObject dayThreeTempObj = dayThree.getJSONObject("temp");
+        Double dayThreeTemp = dayThreeTempObj.getDouble("day");
+        JSONObject DThree_feels_like = dayThree.getJSONObject("feels_like");
+        dayThreeOut.setText(dayThreeTemp + "°C, feels like " + DThree_feels_like.getDouble("day") + "°C");
         // Day Four
         JSONObject dayFour = main_week.getJSONObject(3);
-        String dayFourDate = dayOne.getString("dt_txt");
-        dayFourLabel.setText(dayFourDate);
-        JSONObject dayFourTempObj = dayFour.getJSONObject("main");
-        Double dayFourTemp = dayFourTempObj.getDouble("temp");
-        dayFourOut.setText(dayFourTemp + "°C");
+        JSONObject dayFourTempObj = dayFour.getJSONObject("temp");
+        Double dayFourTemp = dayFourTempObj.getDouble("day");
+        JSONObject DFour_feels_like = dayFour.getJSONObject("feels_like");
+        dayFourOut.setText(dayFourTemp + "°C, feels like " + DFour_feels_like.getDouble("day") + "°C");
         // Day Five
         JSONObject dayFive = main_week.getJSONObject(4);
-        String dayFiveDate = dayOne.getString("dt_txt");
-        dayFiveLabel.setText(dayFiveDate);
-        JSONObject dayFiveTempObj = dayFive.getJSONObject("main");
-        Double dayFiveTemp = dayFiveTempObj.getDouble("temp");
-        dayFiveOut.setText(dayFiveTemp + "°C");
+        JSONObject dayFiveTempObj = dayFive.getJSONObject("temp");
+        Double dayFiveTemp = dayFiveTempObj.getDouble("day");
+        JSONObject DFive_feels_like = dayFive.getJSONObject("feels_like");
+        dayFiveOut.setText(dayFiveTemp + "°C, feels like " + DFive_feels_like.getDouble("day") + "°C");
 
     }
 

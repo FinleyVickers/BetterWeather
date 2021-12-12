@@ -31,11 +31,11 @@
     <Label fx:id="dayThreeLabel" layoutX="21.0" layoutY="618.0" text="Day 3:" />
     <Label fx:id="dayFourLabel" layoutX="21.0" layoutY="659.0" text="Day 4:" />
     <Label fx:id="dayFiveLabel" layoutX="21.0" layoutY="701.0" text="Day 5:" />
-    <TextField fx:id="dayOneOut" editable="false" layoutX="140.0" layoutY="525.0" promptText="Temp" />
-    <TextField fx:id="dayTwoOut" editable="false" layoutX="140.0" layoutY="569.0" promptText="Temp" />
-    <TextField fx:id="dayThreeOut" editable="false" layoutX="140.0" layoutY="614.0" promptText="Temp" />
-    <TextField fx:id="dayFourOut" editable="false" layoutX="140.0" layoutY="655.0" promptText="Temp" />
-    <TextField fx:id="dayFiveOut" editable="false" layoutX="140.0" layoutY="697.0" promptText="Temp" />
+    <TextField fx:id="dayOneOut" editable="false" layoutX="78.0" layoutY="525.0" prefHeight="24.0" prefWidth="267.0" promptText="Temp" />
+    <TextField fx:id="dayTwoOut" editable="false" layoutX="78.0" layoutY="569.0" prefHeight="24.0" prefWidth="267.0" promptText="Temp" />
+    <TextField fx:id="dayThreeOut" editable="false" layoutX="78.0" layoutY="614.0" prefHeight="24.0" prefWidth="267.0" promptText="Temp" />
+    <TextField fx:id="dayFourOut" editable="false" layoutX="77.0" layoutY="655.0" prefHeight="24.0" prefWidth="267.0" promptText="Temp" />
+    <TextField fx:id="dayFiveOut" editable="false" layoutX="76.0" layoutY="697.0" prefHeight="24.0" prefWidth="267.0" promptText="Temp" />
     <Button fx:id="fiveDayButton" layoutX="346.0" layoutY="481.0" mnemonicParsing="false" onAction="#fiveDayWeatherInCity" text="Enter" />
     <Label fx:id="weatherTitle" layoutX="21.0" layoutY="14.0" text="Weather">
         <font>
