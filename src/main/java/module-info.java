@@ -12,6 +12,7 @@ module com.betterweather.betterweather {
     requires unirest.java;
     requires json;
     requires org.slf4j;
+    requires java.desktop;
 
     opens com.betterweather.betterweather to javafx.fxml;
     exports com.betterweather.betterweather;

@@ -4,6 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,8 +18,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.awt.*;
 import java.io.*;
 import java.lang.invoke.MethodHandles;
+import java.net.URI;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -54,8 +57,9 @@ public class WeatherController extends MainApplication implements Initializable 
     public TextArea alertDescription;
     public TextField alertDate;
     public TextField alertExpires;
-
+    public Button openMapButton;
     private final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
 
     // Exit button
     @FXML
@@ -70,8 +74,6 @@ public class WeatherController extends MainApplication implements Initializable 
         String city = cityInput.getText();
         // Replace the spaces in the city input with %20 for a valid request, and put into lowercase.
         city = city.replaceAll("\\s+", "%20").toLowerCase(Locale.ENGLISH);
-        // TODO: Change api call to use the One Call API from OpenWeatherMap
-        // TODO: Make an API call to OpenWeatherMap to get the current coordinates of the city
         HttpResponse<JsonNode> response = Unirest.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=b7b61a2308e043d9b9f949af01f090fc&units=metric")
                 .asJson();
         // Json stuff
@@ -91,7 +93,7 @@ public class WeatherController extends MainApplication implements Initializable 
         // Temp vars
         JSONObject main_temp = rootObj.getJSONObject("main");
         double temp = main_temp.getDouble("temp");
-        tempOut.setText(temp + "°C");
+        tempOut.setText(temp + "°C, feels like " + main_temp.getDouble("feels_like") + "°C");
         weatherOut.setText(String.valueOf(weather));
         // Set image
         Image image = new Image(new FileInputStream("Images/" + weatherIcon + "@2x.png"));
@@ -149,7 +151,7 @@ public class WeatherController extends MainApplication implements Initializable 
         String city = cityInput.getText();
         // Replace the spaces in the city input with %20 for a valid request, and put into lowercase.
         city = city.replaceAll("\\s+", "%20");
-        // WTF does local mean?
+        // WTF does locale mean?
         city = city.toLowerCase(Locale.ROOT);
         // Get the next 5 days of weather in the city, using cnt=5
         HttpResponse<JsonNode> response = Unirest.get("http://api.openweathermap.org/data/2.5/forecast/daily?q=" + city + "&cnt=5&appid=b7b61a2308e043d9b9f949af01f090fc&units=metric")
