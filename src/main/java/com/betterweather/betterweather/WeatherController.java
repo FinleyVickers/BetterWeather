@@ -4,7 +4,6 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,10 +17,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.awt.*;
-import java.io.*;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.lang.invoke.MethodHandles;
-import java.net.URI;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -57,7 +56,6 @@ public class WeatherController extends MainApplication implements Initializable 
     public TextArea alertDescription;
     public TextField alertDate;
     public TextField alertExpires;
-    public Button openMapButton;
     private final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 
@@ -88,8 +86,6 @@ public class WeatherController extends MainApplication implements Initializable 
         JSONObject weather_option = main_weather.getJSONObject(0);
         String weather = weather_option.getString("description");
         String weatherIcon = weather_option.getString("icon");
-        // Weather id
-        int isRain = weather_option.getInt("id");
         // Temp vars
         JSONObject main_temp = rootObj.getJSONObject("main");
         double temp = main_temp.getDouble("temp");
