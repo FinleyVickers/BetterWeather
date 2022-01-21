@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -57,6 +58,7 @@ public class WeatherController extends MainApplication implements Initializable 
     public TextField alertDate;
     public TextField alertExpires;
     private final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    public Button mapButton;
 
 
     // Exit button
@@ -201,6 +203,30 @@ public class WeatherController extends MainApplication implements Initializable 
         dayFourOut.setText("40°C");
         dayFiveOut.setText("50°C");
          */
+
+    // Map of city, with weather overlay
+    @FXML
+    protected void cityMap() throws UnirestException {
+        // Get city input
+        String city = cityInput.getText();
+        // Replace the spaces in the city input with %20 for a valid request, and put into lowercase.
+        city = city.replaceAll("\\s+", "%20");
+        city = city.toLowerCase(Locale.ROOT);
+        // Get the city's latitude and longitude
+        HttpResponse<JsonNode> response = Unirest.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=b7b61a2308e043d9b9f949af01f090fc&units=metric")
+                .asJson();
+        // Json stuff
+        JsonNode rootNode = response.getBody();
+        JSONObject rootObj = rootNode.getObject();
+        System.out.println(rootObj);
+        // Latitude and longitude
+        JSONObject coord = rootObj.getJSONObject("coord");
+        Double lat = coord.getDouble("lat");
+        Double lon = coord.getDouble("lon");
+        // Map
+    }
+
+
 
     // Initialize (I have no idea what this does, ide generated it for me, it breaks program if I remove it)
     @Override

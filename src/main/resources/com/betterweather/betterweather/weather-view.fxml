@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="281.0" minWidth="427.0" prefHeight="772.0" prefWidth="434.0" stylesheets="@dark-mode.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.betterweather.betterweather.WeatherController">
+<Pane fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="281.0" minWidth="427.0" prefHeight="772.0" prefWidth="601.0" stylesheets="@dark-mode.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.betterweather.betterweather.WeatherController">
     <TextField fx:id="cityInput" layoutX="14.0" layoutY="50.0" promptText="City" />
     <Button fx:id="cityEnter" alignment="TOP_RIGHT" layoutX="340.0" layoutY="50.0" mnemonicParsing="false" onAction="#currentWeatherInCity" text="Enter" />
     <Label fx:id="weatherLabel" layoutX="14.0" layoutY="102.0" text="Current Weather:" />
@@ -57,4 +57,5 @@
    <TextArea fx:id="alertDescription" editable="false" layoutX="21.0" layoutY="299.0" prefHeight="110.0" prefWidth="267.0" promptText="Description" />
    <TextField fx:id="alertDate" editable="false" layoutX="21.0" layoutY="420.0" prefHeight="24.0" prefWidth="267.0" promptText="Date" />
    <TextField fx:id="alertExpires" editable="false" layoutX="21.0" layoutY="450.0" prefHeight="24.0" prefWidth="267.0" promptText="Expires" />
+   <Button fx:id="mapButton" layoutX="436.0" layoutY="50.0" mnemonicParsing="false" text="Map" />
 </Pane>
