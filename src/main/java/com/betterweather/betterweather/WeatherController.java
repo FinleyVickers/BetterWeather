@@ -73,6 +73,7 @@ public class WeatherController extends MainApplication implements Initializable 
         // City is city (getting input)
         String city = cityInput.getText();
         // Replace the spaces in the city input with %20 for a valid request, and put into lowercase.
+        // api currently not active
         city = city.replaceAll("\\s+", "%20").toLowerCase(Locale.ENGLISH);
         HttpResponse<JsonNode> response = Unirest.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=b7b61a2308e043d9b9f949af01f090fc&units=metric")
                 .asJson();
@@ -97,6 +98,7 @@ public class WeatherController extends MainApplication implements Initializable 
         Image image = new Image(new FileInputStream("Images/" + weatherIcon + "@2x.png"));
         weatherImage.setImage(image);
         // Check for weather alerts in user inputted city
+        // note that this api key is just a placeholder, and is not active
         HttpResponse<JsonNode> response2 = Unirest.get("https://weatherbit-v1-mashape.p.rapidapi.com/alerts?lat=" + lat + "&lon=" + lon)
                 .header("x-rapidapi-host", "weatherbit-v1-mashape.p.rapidapi.com")
                 .header("x-rapidapi-key", "98f907ac21msh865ff2cca16a00dp10b078jsnacf3b7435fb1")
